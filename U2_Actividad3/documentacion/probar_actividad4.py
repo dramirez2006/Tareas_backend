@@ -24,10 +24,12 @@ MATRIX = {
     "CONSULTA": {"company.users.read", "accounts.read", "concepts.read", "transactions.read"},
 }
 CAPTURE_NAMES = {
-    "03_matriz_inicial", "maria_antes", "jose_antes", "08_ana_agrega_permiso",
+    "01_roles", "02_permisos", "03_matriz_inicial", "03_consulta_inicial",
+    "03_contador_inicial", "maria_antes", "jose_antes", "08_ana_agrega_permiso",
     "maria_despues", "jose_despues", "10_ana_quita_permiso", "maria_retiro",
     "jose_retiro", "15_pedro_consulta_rechazado", "16_pedro_cambia_rol",
-    "17_pedro_capturista_aceptado", "luis_contador", "20_jose_permiso_rechazado",
+    "17_pedro_capturista_aceptado", "18_contador_despues",
+    "18_consulta_despues", "luis_contador", "20_jose_permiso_rechazado",
     "21_ana_permiso_aceptado", "22_ana_restaura_consulta",
 }
 PAGE = None
@@ -96,6 +98,11 @@ def role_codes(role_id):
     return {entry["permission"]["code"] for entry in result["rolePermissions"]}
 
 
+def record_role_codes(name, role_id, rule):
+    result = gql(name, rule, f'query {{ rolePermissions(roleId: "{role_id}") {{ role {{ code }} permission {{ code }} }} }}')
+    return {entry["permission"]["code"] for entry in result["rolePermissions"]}
+
+
 def account(name, actor, company, denied):
     return gql(name.lower().replace(" ", "_"), f"{name}: {'rechazado sin guardar' if denied else 'aceptado y guardado'} según accounts.write.",
                f'mutation {{ createAccount(actorCompanyUserId: "{actor}", input: {{companyId: "{company}", accountType: CASH, name: {quote(name)}}}) {{ id name }} }}', denied=denied)
@@ -124,6 +131,8 @@ def main():
         assert actual == expected, (code, actual, expected)
     gql("03_matriz_inicial", "Capturista tiene transactions.write y carece de accounts.write.",
         f'query {{ rolePermissions(roleId: "{role_ids["CAPTURISTA"]}") {{ role {{ code }} permission {{ code }} isActive }} }}')
+    record_role_codes("03_consulta_inicial", role_ids["CONSULTA"], "CONSULTA tiene solo permisos de lectura.")
+    record_role_codes("03_contador_inicial", role_ids["CONTADOR"], "CONTADOR tiene accounts.write y carece de roles.write.")
     initial_count = sql("SELECT COUNT(*) AS n FROM role_permissions")[0]["n"]
 
     unique = uuid4().hex[:10]
@@ -151,7 +160,6 @@ def main():
     for name, role in (("Luis", "CONTADOR"), ("Maria", "CAPTURISTA"), ("Jose", "CAPTURISTA")):
         gql(f"06_rol_{name.lower()}", f"{name} tiene un rol activo: {role}.",
             f'mutation {{ assignRole(actorCompanyUserId: "{ana_id}", input: {{companyUserId: "{people[name]["id"]}", roleId: "{role_ids[role]}"}}) {{ id role {{ code }} isActive }} }}')
-    # Pedro conserva CONSULTA, asignado al crear la membresía.
     account("Maria antes", people["Maria"]["id"], company, True)
     account("Jose antes", people["Jose"]["id"], company, True)
     assert not sql("SELECT id FROM accounts WHERE company_id=%s", (company,))
@@ -180,16 +188,18 @@ def main():
     transaction = f'mutation {{ createTransaction(actorCompanyUserId: "{pedro["id"]}", input: {{accountId: "{cash}", conceptId: "{concept}", transactionType: INCOME, amount: "125.00"}}) {{ id amount }} }}'
     gql("15_pedro_consulta_rechazado", "CONSULTA carece de transactions.write; no se guarda movimiento.", transaction, pedro["token"], True)
     assert not sql("SELECT id FROM transactions WHERE account_id=%s", (cash,))
-    contador_before = role_codes(role_ids["CONTADOR"])
-    consulta_before = role_codes(role_ids["CONSULTA"])
+    contador_before = record_role_codes("15_contador_antes_cambio", role_ids["CONTADOR"], "Lista de CONTADOR antes de cambiar el rol de Pedro.")
+    consulta_before = record_role_codes("15_consulta_antes_cambio", role_ids["CONSULTA"], "Lista de CONSULTA antes de cambiar el rol de Pedro.")
     gql("16_pedro_cambia_rol", "assignRole desactiva CONSULTA y activa CAPTURISTA solo para Pedro.",
         f'mutation {{ assignRole(actorCompanyUserId: "{ana_id}", input: {{companyUserId: "{pedro["id"]}", roleId: "{role_ids["CAPTURISTA"]}"}}) {{ role {{ code }} isActive }} }}')
     gql("17_pedro_capturista_aceptado", "Pedro ahora tiene transactions.write y guarda el movimiento.", transaction, pedro["token"])
     assert len(sql("SELECT id FROM transactions WHERE account_id=%s", (cash,))) == 1
     assignments = sql("SELECT r.code, cur.is_active FROM company_user_roles cur JOIN roles r ON r.id=cur.role_id WHERE cur.company_user_id=%s ORDER BY r.code", (pedro["id"],))
     assert sum(row["is_active"] for row in assignments) == 1
-    assert role_codes(role_ids["CONTADOR"]) == contador_before
-    assert role_codes(role_ids["CONSULTA"]) == consulta_before
+    contador_after = record_role_codes("18_contador_despues", role_ids["CONTADOR"], "CONTADOR conserva la misma lista después del cambio de Pedro.")
+    consulta_after = record_role_codes("18_consulta_despues", role_ids["CONSULTA"], "CONSULTA conserva la misma lista después del cambio de Pedro.")
+    assert contador_after == contador_before
+    assert consulta_after == consulta_before
     save("18_roles_pedro_mysql", "Pedro tiene un solo rol activo; CONTADOR y CONSULTA no cambiaron.", sql={"consulta": "SELECT r.code, cur.is_active FROM company_user_roles cur JOIN roles r ON r.id=cur.role_id WHERE cur.company_user_id=Pedro", "filas": assignments})
     account("Luis contador", people["Luis"]["id"], company, False)
 

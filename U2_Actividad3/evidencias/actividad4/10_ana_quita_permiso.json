@@ -1,9 +1,0 @@
-{
-  "regla": "Ana desactiva la pareja, conserva su fila.",
-  "graphql": "mutation { removePermissionFromRole(actorCompanyUserId: \"11\", roleId: \"3\", permissionId: \"4\") }",
-  "respuesta": {
-    "data": {
-      "removePermissionFromRole": true
-    }
-  }
-}
