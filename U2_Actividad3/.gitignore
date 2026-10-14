@@ -1,13 +1,6 @@
 .venv/
-.venv312/
 __pycache__/
 *.pyc
 .idea/
 .env
 .pytest_cache/
-evidencias/actividad4/*.json
-evidencias/actividad4/*.png
-!evidencias/actividad4/11_pareja_inactiva_mysql.json
-!evidencias/actividad4/18_roles_pedro_mysql.json
-!evidencias/actividad4/23_matriz_final_mysql.json
-!evidencias/actividad4/25_reinicio_sin_duplicados.json

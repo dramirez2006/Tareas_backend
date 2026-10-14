@@ -29,7 +29,7 @@ Cada enlace abre una captura de `/graphql`. A su lado anotamos qué comprobamos.
 | [María tras retirarlo](evidencias/actividad4/capturas_graphql/maria_retiro.png) | Su siguiente intento vuelve a rechazarse. |
 | [José tras retirarlo](evidencias/actividad4/capturas_graphql/jose_retiro.png) | Su siguiente intento también se rechaza. |
 
-En [MySQL](evidencias/actividad4/11_pareja_inactiva_mysql.json) comprobamos que la fila CAPTURISTA/`accounts.write` sigue en `role_permissions` con `is_active = 0`. El guion también comprueba que los intentos rechazados no agregaron cuentas.
+La [captura de MySQL](evidencias/actividad4/08_permiso_inactivo_mysql.png) muestra que la fila CAPTURISTA/`accounts.write` sigue en `role_permissions` con `is_active = 0`. Los intentos rechazados no agregaron cuentas.
 
 ### 3. Pedro cambia de puesto
 
@@ -42,7 +42,7 @@ En [MySQL](evidencias/actividad4/11_pareja_inactiva_mysql.json) comprobamos que 
 | [Consulta después](evidencias/actividad4/capturas_graphql/18_consulta_despues.png) | Su lista también sigue igual. |
 | [Luis crea una cuenta](evidencias/actividad4/capturas_graphql/luis_contador.png) | Confirma que el contador conserva `accounts.write`. |
 
-La [consulta a MySQL](evidencias/actividad4/18_roles_pedro_mysql.json) muestra un solo rol activo para Pedro. Su rol anterior quedó inactivo.
+La [consulta a MySQL](evidencias/actividad4/verificaciones_mysql.txt) muestra un solo rol activo para Pedro. Su rol anterior quedó inactivo.
 
 ### 4. Quién puede modificar los permisos
 
@@ -64,18 +64,4 @@ JOIN permissions p ON p.id = rp.permission_id
 ORDER BY r.code, p.code;
 ```
 
-La [salida del SELECT en MySQL](evidencias/actividad4/select_final_mysql.txt) deja 26 relaciones activas, iguales a la tabla de la actividad. Las dos relaciones que agregamos y retiramos siguen guardadas como inactivas. Después de reiniciar, [comprobamos](evidencias/actividad4/25_reinicio_sin_duplicados.json) que siguen existiendo cuatro roles y diez permisos, sin duplicados.
-
-## Cómo ejecutar las pruebas
-
-Desde `U2_Actividad3`, con Python 3.12 y Docker:
-
-```bash
-docker compose up -d db
-python3.12 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-export SECRET_KEY='clave-local-de-prueba'
-.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
-```
-
-En otra terminal se ejecuta `.venv/bin/python documentacion/probar_actividad4.py`. La prueba usa una empresa nueva y devuelve la lista de permisos a su estado inicial al finalizar. Las capturas de esta entrega están en `evidencias/actividad4/capturas_graphql/`.
+La [salida del SELECT en MySQL](evidencias/actividad4/select_final_mysql.txt) deja 26 relaciones activas, iguales a la tabla de la actividad. Las dos relaciones que agregamos y retiramos siguen guardadas como inactivas. Después de reiniciar, [comprobamos](evidencias/actividad4/verificaciones_mysql.txt) que siguen existiendo cuatro roles y diez permisos, sin duplicados.
