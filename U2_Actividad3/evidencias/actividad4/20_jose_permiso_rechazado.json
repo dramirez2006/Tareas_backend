@@ -1,0 +1,21 @@
+{
+  "regla": "José carece de roles.write y no cambia la matriz.",
+  "graphql": "mutation { assignPermissionToRole(actorCompanyUserId: \"14\", input: {roleId: \"4\", permissionId: \"6\"}) { isActive } }",
+  "respuesta": {
+    "data": null,
+    "errors": [
+      {
+        "message": "El rol no tiene el permiso roles.write.",
+        "locations": [
+          {
+            "line": 2,
+            "column": 3
+          }
+        ],
+        "path": [
+          "assignPermissionToRole"
+        ]
+      }
+    ]
+  }
+}

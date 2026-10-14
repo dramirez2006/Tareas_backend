@@ -1,0 +1,33 @@
+{
+  "regla": "Identificadores de la empresa de demostración para repetir las consultas en GraphiQL.",
+  "mysql": {
+    "empresa": "3",
+    "personas": {
+      "Ana": "11",
+      "Luis": "12",
+      "Maria": "13",
+      "Jose": "14",
+      "Pedro": "15"
+    },
+    "roles": {
+      "ADMINISTRADOR": "1",
+      "CONTADOR": "2",
+      "CAPTURISTA": "3",
+      "CONSULTA": "4"
+    },
+    "permisos": {
+      "company.users.read": "1",
+      "company.users.write": "2",
+      "accounts.read": "3",
+      "accounts.write": "4",
+      "concepts.read": "5",
+      "concepts.write": "6",
+      "transactions.read": "7",
+      "transactions.write": "8",
+      "roles.read": "9",
+      "roles.write": "10"
+    },
+    "cuenta": "11",
+    "concepto": "3"
+  }
+}

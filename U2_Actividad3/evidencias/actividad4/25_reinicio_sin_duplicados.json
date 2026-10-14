@@ -1,0 +1,203 @@
+{
+  "regla": "Tras reiniciar: 4 roles, 10 permisos, 26 relaciones activas y 2 relaciones históricas inactivas; no hay duplicados.",
+  "consulta_sql": "SELECT r.code AS rol, p.code AS permiso, rp.is_active FROM role_permissions rp JOIN roles r ON r.id=rp.role_id JOIN permissions p ON p.id=rp.permission_id ORDER BY r.code, p.code",
+  "conteos": {
+    "roles": 4,
+    "permissions": 10,
+    "role_permissions": 28,
+    "activas": 26,
+    "inactivas": 2
+  },
+  "graphql": {
+    "data": {
+      "roles": [
+        {
+          "code": "ADMINISTRADOR"
+        },
+        {
+          "code": "CONTADOR"
+        },
+        {
+          "code": "CAPTURISTA"
+        },
+        {
+          "code": "CONSULTA"
+        }
+      ],
+      "permissions": [
+        {
+          "code": "company.users.read"
+        },
+        {
+          "code": "company.users.write"
+        },
+        {
+          "code": "accounts.read"
+        },
+        {
+          "code": "accounts.write"
+        },
+        {
+          "code": "concepts.read"
+        },
+        {
+          "code": "concepts.write"
+        },
+        {
+          "code": "transactions.read"
+        },
+        {
+          "code": "transactions.write"
+        },
+        {
+          "code": "roles.read"
+        },
+        {
+          "code": "roles.write"
+        }
+      ]
+    }
+  },
+  "filas": [
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "accounts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "accounts.write",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "company.users.read",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "company.users.write",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "concepts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "concepts.write",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "roles.read",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "roles.write",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "transactions.read",
+      "is_active": 1
+    },
+    {
+      "rol": "ADMINISTRADOR",
+      "permiso": "transactions.write",
+      "is_active": 1
+    },
+    {
+      "rol": "CAPTURISTA",
+      "permiso": "accounts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CAPTURISTA",
+      "permiso": "accounts.write",
+      "is_active": 0
+    },
+    {
+      "rol": "CAPTURISTA",
+      "permiso": "concepts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CAPTURISTA",
+      "permiso": "transactions.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CAPTURISTA",
+      "permiso": "transactions.write",
+      "is_active": 1
+    },
+    {
+      "rol": "CONSULTA",
+      "permiso": "accounts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONSULTA",
+      "permiso": "company.users.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONSULTA",
+      "permiso": "concepts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONSULTA",
+      "permiso": "concepts.write",
+      "is_active": 0
+    },
+    {
+      "rol": "CONSULTA",
+      "permiso": "transactions.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "accounts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "accounts.write",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "company.users.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "concepts.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "concepts.write",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "roles.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "transactions.read",
+      "is_active": 1
+    },
+    {
+      "rol": "CONTADOR",
+      "permiso": "transactions.write",
+      "is_active": 1
+    }
+  ]
+}

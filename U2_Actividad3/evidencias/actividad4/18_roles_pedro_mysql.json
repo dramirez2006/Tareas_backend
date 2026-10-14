@@ -1,0 +1,16 @@
+{
+  "regla": "Pedro tiene un solo rol activo; CONTADOR y CONSULTA no cambiaron.",
+  "mysql": {
+    "consulta": "SELECT r.code, cur.is_active FROM company_user_roles cur JOIN roles r ON r.id=cur.role_id WHERE cur.company_user_id=Pedro",
+    "filas": [
+      {
+        "code": "CAPTURISTA",
+        "is_active": 1
+      },
+      {
+        "code": "CONSULTA",
+        "is_active": 0
+      }
+    ]
+  }
+}

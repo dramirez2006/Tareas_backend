@@ -1,0 +1,12 @@
+{
+  "regla": "Las cinco personas comparten una empresa de prueba.",
+  "graphql": "mutation { createCompany(input: {name: \"Actividad 4 b762a18c6a\"}) { id name } }",
+  "respuesta": {
+    "data": {
+      "createCompany": {
+        "id": "3",
+        "name": "Actividad 4 b762a18c6a"
+      }
+    }
+  }
+}

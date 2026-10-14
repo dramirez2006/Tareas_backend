@@ -1,0 +1,21 @@
+{
+  "regla": "Maria retiro: rechazado sin guardar según accounts.write.",
+  "graphql": "mutation { createAccount(actorCompanyUserId: \"13\", input: {companyId: \"3\", accountType: CASH, name: \"Maria retiro\"}) { id name } }",
+  "respuesta": {
+    "data": null,
+    "errors": [
+      {
+        "message": "El rol no tiene el permiso accounts.write.",
+        "locations": [
+          {
+            "line": 2,
+            "column": 3
+          }
+        ],
+        "path": [
+          "createAccount"
+        ]
+      }
+    ]
+  }
+}

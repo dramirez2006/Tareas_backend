@@ -1,0 +1,21 @@
+{
+  "regla": "Jose retiro: rechazado sin guardar según accounts.write.",
+  "graphql": "mutation { createAccount(actorCompanyUserId: \"14\", input: {companyId: \"3\", accountType: CASH, name: \"Jose retiro\"}) { id name } }",
+  "respuesta": {
+    "data": null,
+    "errors": [
+      {
+        "message": "El rol no tiene el permiso accounts.write.",
+        "locations": [
+          {
+            "line": 2,
+            "column": 3
+          }
+        ],
+        "path": [
+          "createAccount"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "regla": "Jose tiene un rol activo: CAPTURISTA.",
+  "graphql": "mutation { assignRole(actorCompanyUserId: \"11\", input: {companyUserId: \"14\", roleId: \"3\"}) { id role { code } isActive } }",
+  "respuesta": {
+    "data": {
+      "assignRole": {
+        "id": "26",
+        "role": {
+          "code": "CAPTURISTA"
+        },
+        "isActive": true
+      }
+    }
+  }
+}

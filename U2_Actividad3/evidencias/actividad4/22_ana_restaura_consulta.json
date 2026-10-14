@@ -1,0 +1,9 @@
+{
+  "regla": "Ana retira concepts.write; CONSULTA vuelve a solo lectura.",
+  "graphql": "mutation { removePermissionFromRole(actorCompanyUserId: \"11\", roleId: \"4\", permissionId: \"6\") }",
+  "respuesta": {
+    "data": {
+      "removePermissionFromRole": true
+    }
+  }
+}

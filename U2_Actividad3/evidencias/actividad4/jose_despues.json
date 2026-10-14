@@ -1,0 +1,12 @@
+{
+  "regla": "Jose despues: aceptado y guardado según accounts.write.",
+  "graphql": "mutation { createAccount(actorCompanyUserId: \"14\", input: {companyId: \"3\", accountType: CASH, name: \"Jose despues\"}) { id name } }",
+  "respuesta": {
+    "data": {
+      "createAccount": {
+        "id": "10",
+        "name": "Jose despues"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "regla": "La pareja CAPTURISTA/accounts.write permanece en MySQL con is_active=0.",
+  "mysql": {
+    "consulta": "SELECT id, is_active FROM role_permissions WHERE role_id=CAPTURISTA AND permission_id=accounts.write",
+    "filas": [
+      {
+        "id": 27,
+        "is_active": 0
+      }
+    ]
+  }
+}

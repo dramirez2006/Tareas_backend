@@ -1,0 +1,11 @@
+{
+  "regla": "El concepto queda disponible para la cuenta.",
+  "graphql": "mutation { assignConceptToAccount(actorCompanyUserId: \"11\", input: {accountId: \"11\", conceptId: \"3\"}) { id } }",
+  "respuesta": {
+    "data": {
+      "assignConceptToAccount": {
+        "id": "3"
+      }
+    }
+  }
+}

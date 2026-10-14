@@ -1,0 +1,17 @@
+{
+  "regla": "Ana agrega accounts.write una vez al rol CAPTURISTA.",
+  "graphql": "mutation { assignPermissionToRole(actorCompanyUserId: \"11\", input: {roleId: \"3\", permissionId: \"4\"}) { role { code } permission { code } isActive } }",
+  "respuesta": {
+    "data": {
+      "assignPermissionToRole": {
+        "role": {
+          "code": "CAPTURISTA"
+        },
+        "permission": {
+          "code": "accounts.write"
+        },
+        "isActive": true
+      }
+    }
+  }
+}

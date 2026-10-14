@@ -49,7 +49,9 @@ def seed_rbac(db: Session) -> None:
     permissions = {p.code: p for p in db.scalars(select(PermissionModel)).all()}
     for role_code, codes in PERMISSION_MATRIX.items():
         role = roles[role_code]
-        found = db.scalar(select(RolePermissionModel.id).where(RolePermissionModel.role_id == role.id, RolePermissionModel.is_active.is_(True)).limit(1))
+        # A role with only inactive rows was configured deliberately. Re-seeding
+        # it would silently undo the administrator's changes after a restart.
+        found = db.scalar(select(RolePermissionModel.id).where(RolePermissionModel.role_id == role.id).limit(1))
         if found is not None:
             continue
         for code in codes:
