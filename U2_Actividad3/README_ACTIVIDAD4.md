@@ -52,6 +52,8 @@ La [consulta a MySQL](evidencias/actividad4/verificaciones_mysql.txt) muestra un
 | [Cambio de Ana](evidencias/actividad4/capturas_graphql/21_ana_permiso_aceptado.png) | Ana sí puede agregarlo. |
 | [Ana lo retira](evidencias/actividad4/capturas_graphql/22_ana_restaura_consulta.png) | CONSULTA vuelve a quedar sin permisos de escritura. |
 
+La [consulta a MySQL](evidencias/actividad4/verificaciones_mysql.txt) confirma que el intento rechazado de José no activó `concepts.write` para CONSULTA.
+
 ## Resultado final en MySQL
 
 Ejecutamos la consulta solicitada:
